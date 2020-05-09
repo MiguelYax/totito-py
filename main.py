@@ -34,10 +34,16 @@ def check_winer(x, y):
 def get_random_move(value):
     x = random.randint(0, 2)
     y = random.randint(0, 2)
-    p = board[x][y]
+    p = s
     while p == s:
-        board[x][y] = " " + value + " "
-        p = value
+        if board[x][y] == s:
+            board[x][y] = " " + value + " "
+            p = value
+        else:
+            # TODO: prevent infinite loop
+            x = random.randint(0, 2)
+            y = random.randint(0, 2)
+
     return x, y
 
 
@@ -52,12 +58,17 @@ win = False
 move = 0
 player = ''
 
-while win == False:
-    move += 1
+while win == False and move <= 10:
     player = icon[move % 2]
     x, y = get_random_move(player)
-    win = check_winer(x, y)
+    if move > 4:
+        win = check_winer(x, y)
+    # print_board()
+    move += 1
 
 print_board()
 
-print(player + ' Win!')
+if move > 9:
+    print("Draw Game!")
+else:
+    print(player + ' Win the Game!')
