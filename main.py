@@ -13,7 +13,7 @@ board = [[s, s, s],
 icon = ['X', 'O']
 
 
-def check_winer(x, y):
+def check_winner(x, y):
     value = board[x][y]
     # check row
     if board[x][0] == value and board[x][1] == value and board[x][2] == value:
@@ -61,8 +61,9 @@ player = ''
 while win == False and move <= 10:
     player = icon[move % 2]
     x, y = get_random_move(player)
+    # check who win the game after 5 moves.
     if move > 4:
-        win = check_winer(x, y)
+        win = check_winner(x, y)
     # print_board()
     move += 1
 
